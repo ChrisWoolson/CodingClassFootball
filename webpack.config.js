@@ -13,7 +13,11 @@ module.exports = function (options) {
     module: {
       rules: [
         { test: /\.tsx?$/, use: 'ts-loader?configFile=tsconfig-client.json', exclude: /node_modules/ },
-        { test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/, use: 'file-loader?limit=1024&name=[path][name].[ext]' },
+        {
+          test: /\.(jpg|png|woff|woff2|eot|ttf|svg)$/, loader: 'file-loader', options: {
+            name: '[path][name].[ext]'
+          }
+        },
       ]
     },
     plugins: [
