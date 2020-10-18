@@ -12,6 +12,7 @@
         "sourceMap": false
     },
     "include": [
-      "src/server/**/*.ts"
+      "src/server/**/*.ts",
+      "src/index.d.ts"
     ]
 }
