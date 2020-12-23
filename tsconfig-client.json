@@ -12,6 +12,6 @@
     },
     "include": [
       "src/client/**/*.ts",
-      "src/index.d.ts"
+      "src/images.d.ts"
     ]
 }

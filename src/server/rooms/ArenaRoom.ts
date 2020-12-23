@@ -11,7 +11,6 @@ export class ArenaRoom extends Room<State> {
 
   onCreate() {
     this.setState(new State());
-    this.state.initialize();
 
     this.onMessage("mouse", (client, message: MouseMessage) => {
       const entity = this.state.entities[client.sessionId];
@@ -28,11 +27,44 @@ export class ArenaRoom extends Room<State> {
       entity.angle = Math.atan2(entity.y - message.y, entity.x - message.x);
     });
 this.onMessage("space", ()=>{
-//console.log("SPACE");
 this.state.spacePressed();
   });
+this.onMessage("one", ()=>{
+this.state.throwBall();
+  });
 
-
+  this.onMessage("w", ()=>{
+this.state.playerMovement[0] = 'w';
+  });
+  this.onMessage("a", ()=>{
+this.state.playerMovement[1] = 'a';
+  });
+  this.onMessage("s", ()=>{
+this.state.playerMovement[2] = 's';
+  });
+  this.onMessage("d", ()=>{
+this.state.playerMovement[3] = 'd';
+  });
+  this.onMessage("W", ()=>{
+this.state.playerMovement[0] = 'W';
+  });
+  this.onMessage("A", ()=>{
+this.state.playerMovement[1] = 'A';
+  });
+  this.onMessage("S", ()=>{
+this.state.playerMovement[2] = 'S';
+  });
+  this.onMessage("D", ()=>{
+this.state.playerMovement[3] = 'D';
+  });
+  
+  /*this.onMessage("two", ()=>{
+this.state.throwBall(2);
+  });
+  this.onMessage("three", ()=>{
+this.state.throwBall(3);
+  });
+*/
     this.setSimulationInterval(() => this.state.update());
   }
 
@@ -40,8 +72,9 @@ this.state.spacePressed();
 
   onJoin(client: Client, options: any) {
     console.log(client.sessionId, "JOINED");
-    this.state.createPlayer(client.sessionId);
-    //this.state.createEnemy(client.sessionId);
+    if(this.state.playerIDs[0] == ''){this.state.createOffencePlayer(client.sessionId);
+    }
+    else{this.state.createDefencePlayer(client.sessionId);}
   }
 
   onLeave(client: Client) {
